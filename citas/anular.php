@@ -40,10 +40,11 @@
                                 array($id_usuario)); 
         $fila  = pg_fetch_assoc($res, 0);
         $fecha = $fila['fecha_format'];
-        $hora  = $fila['hora']; ?>
+        $hora  = $fila['hora']; 
+        $hora  = date('H:i', strtotime($hora)); ?>
         
         <h4>¿Está seguro de querer anular?</h4>
-        <h4>Cita día <?= date("d-m-Y", strtotime($fecha)) ?> a las <?= $hora ?>:00</h4>
+        <h4>Cita día <?= date("d-m-Y", strtotime($fecha)) ?> a las <?= $hora ?></h4>
         <form action="anular.php" method="post">
             <input type="hidden" name="id_usuario" value=<?= $id_usuario ?> />
             <input type="hidden" name="fecha" value=<?= $fecha ?> />

@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <title>Citas para el médico</title>
     </head>
-    <body><?php
+    <body><?php       
         require './comunes/auxiliar.php';
 
         conectar();
@@ -43,9 +43,10 @@
                                     array($id_usuario)); 
             $fila  = pg_fetch_assoc($res, 0);
             $fecha = $fila['fecha_format'];
-            $hora  = $fila['hora']; ?>
+            $hora  = $fila['hora']; 
+            $hora  = date('H:i', strtotime($hora)); ?>
         
-            <h3>Tiene cita el día <?= $fecha ?> a las <?= $hora ?>:00</h3>
+            <h3>Tiene cita el día <?= $fecha ?> a las <?= $hora ?></h3>
             <form action="citas/anular.php" method="get">
                 <input type="hidden" name="id_usuario" value=<?= $id_usuario ?> />
                 <input type="submit" value="Anular Cita" />
@@ -71,7 +72,7 @@
             if (pg_num_rows($res) > 0) {
                 for ($i = 0; $i < pg_num_rows($res); $i++) {
                     $fila = pg_fetch_assoc($res, $i); ?>
-                <p>Fecha: <?= $fila['fecha'] ?> | Hora: <?= $fila['hora'] ?>:00</p><?php
+                <p>Fecha: <?= $fila['fecha'] ?> | Hora: <?= $fila['hora'] ?></p><?php
                 }
             }
         }?>

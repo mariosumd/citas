@@ -19,7 +19,7 @@ create table citas (
                            references usuarios (id_usuario) 
                            on delete no action on update cascade,
   fecha         date       not null,
-  hora          numeric(2) not null constraint ck_hora_valida
-                           check (hora between 10 and 21),
+  hora          time       not null constraint ck_hora_valida
+                           check (hora between '10:00:00' and '20:45:00'),
   constraint uq_citas_unicas unique (fecha, hora)
 );
