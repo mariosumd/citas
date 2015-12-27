@@ -39,10 +39,10 @@
         $mins    = intval(date("i"));
         $fecha   = date('Y-m-d');
         $citado  = FALSE;
-
-        if ($mins > 15) $mins = 15;
-        elseif ($mins > 30) $mins = 30;
-        elseif ($mins > 45) $mins = 45;
+        
+        if ($mins < 15) $mins = 15;
+        elseif ($mins < 30) $mins = 30;
+        elseif ($mins < 45) $mins = 45;
         else {
             $hora++;
             $mins = 00;
@@ -56,8 +56,8 @@
         
         for ($i = 0; $i < 10; $i++) {
             $fecha = date($fecha, strtotime("+$i days"));
-            for ($j = $hora; $j < 21; $j++) {
-                for ($k = $mins; $k < 22; $k += 15) {
+            for ($j = $hora; $j < 21; $j++) { 
+                for ($k = $mins; $k < 46; $k += 15) {
                     if ($k === 0) {
                         $aux = '00';
                     } else {
@@ -65,9 +65,9 @@
                     }
                     
                     $res = pg_query_params("select * from citas where fecha = $1 and hora = '$j:$aux'", array($fecha));
-                    var_dump(pg_num_rows($res));
                     if (pg_num_rows($res) === 0) {
                         $cita   = $j . ":" . $aux;
+                        
                         $citado = TRUE;
                         break;
                     }
